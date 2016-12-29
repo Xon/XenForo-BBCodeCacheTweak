@@ -1,5 +1,5 @@
 <?php
-
+// Copyright XenForo, with minor modifications to this file under the add-on licence.
 /**
  * Helper to allow deferred rendering of BB codes in text. This is useful when
  * putting BB code into a template. The text does not need to explicitly
@@ -92,10 +92,12 @@ class XenForo_BbCode_TextWrapper
 
                         $uniqueId = $this->_cache['contentType'] . '-' . $this->_cache['contentId'];
 
+                        // modifications start
                         if (empty(self::$_cacheWritten[$uniqueId]) &&
                             strlen($this->_text) > $options->sv_bbcode_cache_size &&
                             (microtime(true) - $start > $options->sv_bbcode_cache_threshold))
                         {
+                        // modifications end
                             XenForo_Application::getDb()->query('
                                 INSERT INTO xf_bb_code_parse_cache
                                     (content_type, content_id, parse_tree, cache_version, cache_date)
